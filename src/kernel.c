@@ -22,8 +22,8 @@ void kernel_main()
 	while (1)
 	{
 		*GPSET1 = (1 << 10); // GPIO 42 = bit 10 in SET1 register
-		delay(500000);
+		delay(1500000);
 		*GPCLR1 = (1 << 10); // GPIO 42 = bit 10 in CLR1 register
-		delay(500000);
+		delay(2500000);
 	}
 }
