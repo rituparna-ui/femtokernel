@@ -16,11 +16,11 @@ BUILD_DIR = build
 
 # Source files
 ASM_SOURCES = $(SRC_DIR)/boot.S
-C_SOURCES = $(SRC_DIR)/kernel.c $(LIB_DIR)/gpio.c
+C_SOURCES = $(SRC_DIR)/kernel.c $(LIB_DIR)/gpio.c $(LIB_DIR)/uart.c
 
 # Object files
 ASM_OBJECTS = $(BUILD_DIR)/boot.o
-C_OBJECTS = $(BUILD_DIR)/kernel.o $(BUILD_DIR)/gpio.o
+C_OBJECTS = $(BUILD_DIR)/kernel.o $(BUILD_DIR)/gpio.o $(BUILD_DIR)/uart.o
 
 # Target
 TARGET = $(BUILD_DIR)/kernel8.img
