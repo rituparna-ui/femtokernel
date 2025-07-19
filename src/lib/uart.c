@@ -1,3 +1,8 @@
+// Add the following to config.txt
+// enable_uart=1
+// dtoverlay=disable-bt
+// arm_64bit=1
+
 // Raspberry Pi 4 addresses
 #define MMIO_BASE 0xFE000000
 #define GPIO_BASE (MMIO_BASE + 0x200000)
