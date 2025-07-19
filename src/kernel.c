@@ -30,7 +30,11 @@ void kernel_main()
 
 	while (1)
 	{
-		char c = uart_getc();
+		unsigned char c = uart_getc();
 		uart_putc(c);
+		if (c == '\r')
+		{
+			uart_puts('\n');
+		}
 	}
 }
