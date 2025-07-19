@@ -5,21 +5,22 @@ LD = aarch64-linux-gnu-ld
 OBJCOPY = aarch64-linux-gnu-objcopy
 
 # Flags
-CFLAGS = -ffreestanding -nostdlib -nostartfiles -O2
+CFLAGS = -ffreestanding -nostdlib -nostartfiles -O2 -Isrc
 ASFLAGS =
 LDFLAGS = -nostdlib
 
 # Directories
 SRC_DIR = src
+LIB_DIR = $(SRC_DIR)/lib
 BUILD_DIR = build
 
 # Source files
 ASM_SOURCES = $(SRC_DIR)/boot.S
-C_SOURCES = $(SRC_DIR)/kernel.c
+C_SOURCES = $(SRC_DIR)/kernel.c $(LIB_DIR)/gpio.c
 
 # Object files
 ASM_OBJECTS = $(BUILD_DIR)/boot.o
-C_OBJECTS = $(BUILD_DIR)/kernel.o
+C_OBJECTS = $(BUILD_DIR)/kernel.o $(BUILD_DIR)/gpio.o
 
 # Target
 TARGET = $(BUILD_DIR)/kernel8.img
@@ -35,6 +36,10 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.S
 	$(AS) $(ASFLAGS) $< -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/%.o: $(LIB_DIR)/%.c
 	mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 

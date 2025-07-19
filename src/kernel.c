@@ -1,7 +1,6 @@
-#define GPIO_BASE 0xFE200000
-#define GPFSEL4 ((volatile unsigned int *)(GPIO_BASE + 0x10))
-#define GPSET1 ((volatile unsigned int *)(GPIO_BASE + 0x20))
-#define GPCLR1 ((volatile unsigned int *)(GPIO_BASE + 0x2C))
+#include "lib/gpio.h"
+
+#define LED_PIN 42
 
 void delay(int count)
 {
@@ -13,17 +12,14 @@ void delay(int count)
 
 void kernel_main()
 {
-	// set GPIO 42 = output
-	unsigned int ra = *GPFSEL4;
-	ra &= ~(7 << 6); // Clear bits 6-8
-	ra |= (1 << 6);	 // Set bit 6 (001 = output)
-	*GPFSEL4 = ra;
+	gpio_init();
+	gpio_set_function(LED_PIN, GPIO_OUTPUT);
 
 	while (1)
 	{
-		*GPSET1 = (1 << 10); // GPIO 42 = bit 10 in SET1 register
-		delay(1500000);
-		*GPCLR1 = (1 << 10); // GPIO 42 = bit 10 in CLR1 register
-		delay(2500000);
+		gpio_set(LED_PIN);
+		delay(500000);
+		gpio_clear(LED_PIN);
+		delay(500000);
 	}
 }
